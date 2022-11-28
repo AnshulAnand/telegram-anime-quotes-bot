@@ -3,7 +3,7 @@ const fetch = require('node-fetch');
 const { Scenes, Telegraf, session } = require("telegraf");
 const bot = new Telegraf(process.env.TELEGRAM_TOKEN);
  
-const contactDataWizard = new Scenes.WizardScene(
+const getAnimeQuoteWizard = new Scenes.WizardScene(
   'ANIME_WIZARD_SCENE_ID',
   (ctx) => {
     ctx.reply(`Do you want a random quote or a quote from a specific anime or character?\n\nType "Anime" for anime or "Character" for character. Type "Random" if you want a random quote.`);
@@ -66,7 +66,7 @@ const contactDataWizard = new Scenes.WizardScene(
   }
 );
 
-const stage = new Scenes.Stage([contactDataWizard]); // Register our scenes
+const stage = new Scenes.Stage([getAnimeQuoteWizard]); // Register our scenes
 bot.use(session());
 bot.use(stage.middleware()); // Stage middleware
 bot.on("text", Scenes.Stage.enter('ANIME_WIZARD_SCENE_ID')); // Entering the settings scene when listener worked
