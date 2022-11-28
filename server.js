@@ -2,11 +2,11 @@ require('dotenv').config();
 const fetch = require('node-fetch');
 const { Scenes, Telegraf, session } = require("telegraf");
 const bot = new Telegraf(process.env.TELEGRAM_TOKEN);
-
+ 
 const contactDataWizard = new Scenes.WizardScene(
   'ANIME_WIZARD_SCENE_ID',
   (ctx) => {
-    ctx.reply('Do you want a random quote or a quote from a specific anime or character?');
+    ctx.reply(`Do you want a random quote or a quote from a specific anime or character?\n\nType "Anime" for anime or "Character" for character. Type "Random" if you want a random quote.`);
     ctx.wizard.state.anime = {};
     return ctx.wizard.next();
   },
@@ -31,6 +31,9 @@ const contactDataWizard = new Scenes.WizardScene(
         ctx.wizard.state.anime = 'character';
         ctx.reply('Please enter character name.');
         return ctx.wizard.next();
+    }
+    else {
+      ctx.reply('Please enter "Anime or "Character".');
     }
   },
   async (ctx) => {
